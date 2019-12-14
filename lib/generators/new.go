@@ -47,13 +47,13 @@ func New(pkg string) error {
 }
 
 func createFiles(dir string, ctx newTmplCtx) error {
-	if err := createFile("go.mod.tmpl", ctx); err != nil {
+	if err := createFile(dir, "go.mod.tmpl", ctx); err != nil {
 		return err
 	}
-	if err := createFile("main.go.tmpl", ctx); err != nil {
+	if err := createFile(dir, "main.go.tmpl", ctx); err != nil {
 		return err
 	}
-	return createFile("cmd/root.go.tmpl", ctx)
+	return createFile(dir, "cmd/root.go.tmpl", ctx)
 }
 
 func newDirectories(dir string) error {
@@ -69,9 +69,9 @@ func newDirectories(dir string) error {
 	return nil
 }
 
-func createFile(t string, ctx newTmplCtx) error {
+func createFile(dir, t string, ctx newTmplCtx) error {
 	tmplPath := path.Join("/templates", t)
-	newPath := strings.Replace(t, ".tmpl", "", 1)
+	newPath := filepath.Join(dir, strings.Replace(t, ".tmpl", "", 1))
 	file, err := pkger.Open(tmplPath)
 
 	if err != nil {

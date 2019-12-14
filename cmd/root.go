@@ -2,14 +2,15 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
+
+	"github.com/spf13/cobra"
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "test",
-	Short: "A web application",
+	Use:   "go-web",
+	Short: "A web application generator",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -19,4 +20,8 @@ func Execute() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+}
+
+func init() {
+	rootCmd.AddCommand(newCmd)
 }
